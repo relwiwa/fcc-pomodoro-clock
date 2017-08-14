@@ -8,9 +8,6 @@ config.output.sourceMapFilename = '[name].[chunkhash].map';
 config.devtool = '#eval-cheap-module-source-map';
 config.devServer = {
   historyApiFallback: true,
-    hot: true,
-    inline: true,
-    port: 7700
 };
 /*  necessary for enzyme to work
     http://airbnb.io/enzyme/docs/guides/webpack.html */

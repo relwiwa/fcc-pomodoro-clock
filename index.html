@@ -1,83 +1,12 @@
 <!doctype html>
 <html>
-
-<head>
-	
-	<title>Pomodoro Clock - FreeCodeCamp Frontend Certification</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="utf-8">
-
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	
-	<script src="js/main.js"></script>
-	<link rel="stylesheet" href="css/main.css">
-	
+<head class="no-js">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Pomodoro Clock | A Project for FreeCodeCamp's Frontend Certification</title>
 </head>
-	
 <body>
-
-<!--<body class="{{mode}}" ng-app="myClock" ng-controller="ClockController">-->
-<div id="wrapper" ng-app="myClock" ng-controller="ClockController">
-
-	<h1 class="text-center">Pomodoro Clock</h1>
-
-  <div class="container text-center">
-
-    <div id="settings" class="row">
-      
-      <div class="col col-xs-6 col-sm-4 col-sm-offset-2">
-        <h4>Session</h4>
-        <button class="glyphicon glyphicon-plus" ng-click="changeDuration('+', 'sess')"></button>
-        <span ng-bind="sess.duration"></span>
-        <button class="glyphicon glyphicon-minus" ng-click="changeDuration('-', 'sess')"></button>
-      </div>
-      
-      <div class="col col-xs-6 col-sm-4">
-        <h4>Break</h4>
-        <button class="glyphicon glyphicon-plus" ng-click="changeDuration('+', 'brk')"></button>      
-        <span ng-bind="brk.duration"></span>
-        <button class="glyphicon glyphicon-minus" ng-click="changeDuration('-', 'brk')"></button>
-      </div>
-
-    <!-- /#settings --></div>
-
-    <div id="controls" class="row">
-      <div class="col col-xs-12">
-        <button class="glyphicon glyphicon-play" ng-show="!started" ng-click="start();"></button>
-        <button class="glyphicon glyphicon-pause" ng-show="started && !paused" ng-click="pause();"></button>
-        <button class="glyphicon glyphicon-play" ng-show="started && paused" ng-click="advance();"></button>
-        <button class="	glyphicon glyphicon-stop" ng-show="started" ng-click="reset();"></button>
-      </div>
-    <!-- /#controls --></div>  
-
-    <div id="clock" class="row">
-      <div id="session" ng-if="mode === 'sess'" class="col col-xs-12">Session<br>{{sess.minutes | number: 0}}:{{sess.seconds * 1000 | date: 'ss'}}</div>
-      <div id="break" ng-if="mode === 'brk'" class="col col-xs-12">Break<br>{{brk.minutes | number: 0}}:{{brk.seconds * 1000 | date: 'ss'}}</div>
-      <div id="container">
-        <div id="circle"></div>
-        <div id="pointer"></div>
-      </div>
-    <!-- /#clock --></div>
-		
-		<div id="credits" class="row">
-			<div class="col col-xs-12">
-				<p>By <a href="https://github.com/relwiwa/FreeCodeCamp" title="Walter's FreeCodeCamp Code on Github">Walter</a> for <a href="https://www.freecodecamp.com/challenges/build-a-pomodoro-clock" title="FreeCodeCamp's Frontend Certification">FreeCodeCamp</a>'s Frontend Certification</p>
-			</div>
-		</div>
-		
-		<!-- - Audio file from http://soundbible.com/1815-A-Tone.html;
- 				 - Non-profit use under Public Domain Licence -->
-		<audio id="audio" type="audio/mpeg" src="http://res.cloudinary.com/dqzrtsqol/video/upload/v1458226048/gong_a4moq8.mp3"></audio>
-
-
-  <!-- /.container --></div>
-
-<!-- /#wrapper --></div>
-
-<!--</body>-->
-
-</body>	
-
+  <div id='root'></div>
+</body>
 </html>

@@ -28,13 +28,6 @@ describe('<PomodoroTimer />', function () {
       expect(wrapper.find('div.pointer')).to.have.length(1);
     });
 
-    it('should add a wrapping class according to pomodoroMode', function() {
-      let wrapper = shallow(<PomodoroTimer pomodoroMode="create" />);
-      expect(wrapper.find('.cell.create')).to.have.length(1);
-      wrapper = shallow(<PomodoroTimer pomodoroMode="recreate" />);
-      expect(wrapper.find('.cell.recreate')).to.have.length(1);
-    });
-
     it('should contain a timer-label element with text according to pomodoroMode', function() {
       let wrapper = shallow(<PomodoroTimer pomodoroMode="create" />);
       expect(wrapper.containsMatchingElement(<p>create</p>)).to.equal(true);
@@ -85,32 +78,5 @@ describe('<PomodoroTimer />', function () {
       expect(wrapper.find('.remaining-seconds').text()).to.equal('00');
     });
   });
-
-  /* describe('\'s getRemainingTime function', function() {
-    it('should return durationCreation if pomodoroClock has not started', () => {
-      const wrapper = shallow(<PomodoroClock />);
-      const remainingTime = wrapper.instance().getRemainingTime();
-      expect(remainingTime).to.equal(wrapper.state('durationCreation'));
-    });
-
-    it('should return remaining time according to pomodoroMode', () => {
-      const wrapper = shallow(<PomodoroClock />);
-      wrapper.setState({ pomodoroMode: 'create' });
-      let remainingTime = wrapper.instance().getRemainingTime();
-      expect(remainingTime).to.equal(wrapper.state('durationCreation') - wrapper.state('durationElapsed'));
-
-      wrapper.setState({ pomodoroMode: 'recreate' });
-      remainingTime = wrapper.instance().getRemainingTime();
-      expect(remainingTime).to.equal(wrapper.state('durationRecreation') - wrapper.state('durationElapsed'));
-    });
-
-    it('should return difference between durationRecreation and durationElapsed if pomodoroMode is recreate', () => {
-      const wrapper = shallow(<PomodoroClock />);
-    });
-
-  });*/
-
-
-
 
 });

@@ -1,6 +1,4 @@
-$colorComplimentaryA:#ffa500;
-$colorComplimentaryB:#3798B5;
-$colorNeutral:#ffffff;
+@import './pomodoro.general.scss';
 
 .pomodoro-timer {
 
@@ -11,8 +9,6 @@ $colorNeutral:#ffffff;
     height:200px;
     margin:15px auto;
     border-radius:50%;
-    border:15px $colorComplimentaryB solid;
-    box-shadow:0 0 20px $colorComplimentaryB;
   }
 
   .timer-label {
@@ -62,13 +58,37 @@ $colorNeutral:#ffffff;
     z-index:15;
   }
 
-  .create .circle {
-    background: $colorComplimentaryA;
+  .create {
+    .circle {
+      background: $colorComplimentaryA;
+    }
+
+    .pointer {
+      border-bottom-color: $colorComplimentaryA;
+    }
+
+    .outer-container {
+      border:15px $colorComplimentaryB solid;
+      box-shadow:0 0 20px $colorComplimentaryB;
+    }
   }
+
+  .recreate {
+    .circle {
+      background: $colorComplimentaryB;
+    }
   
-  .create .pointer {
-    border-bottom-color: $colorComplimentaryA;
+    .pointer {
+      border-bottom-color: $colorComplimentaryB;
+    }
+
+    .outer-container {
+      border:15px $colorComplimentaryA solid;
+      box-shadow:0 0 20px $colorComplimentaryA;
+    }
   }
+
+
 
 }
 

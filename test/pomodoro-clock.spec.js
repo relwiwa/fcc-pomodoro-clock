@@ -3,9 +3,18 @@ import { mount, shallow } from 'enzyme';
 import { expect } from 'chai';
 
 import PomodoroClock from '../src/components/pomodoro-clock';
+import PomodoroControls from '../src/components/pomodoro-controls';
 import PomodoroTimer from '../src/components/pomodoro-timer';
 
 describe('<PomodoroClock />', function () {
+
+  it('should add a wrapping class according to pomodoroMode', function() {
+    let wrapper = shallow(<PomodoroClock />);
+    expect(wrapper.find('.pomodoro-clock.create')).to.have.length(1);
+    wrapper.setState({pomodoroMode: 'recreate'});
+    expect(wrapper.find('.pomodoro-clock.recreate')).to.have.length(1);
+  });
+
 
   describe('\'s child elements', function() {
 
@@ -72,6 +81,34 @@ describe('<PomodoroClock />', function () {
       wrapper.setState({'pomodoroMode': 'recreate'});
       pomodoroTimer = wrapper.find(PomodoroTimer);
       expect(pomodoroTimer.prop('durationTotal')).to.equal(wrapper.state('durationRecreation'));
+    });
+
+  });
+
+
+  describe('props passed to <PomodoroControls>', function() {
+
+    it('should pass a pomodoroStarted prop', function() {
+      const wrapper = shallow(<PomodoroClock />);
+      const pomodoroControls = wrapper.find(PomodoroControls);
+      const pomodoroStarted = wrapper.state('pomodoroStarted');
+      expect(pomodoroControls.prop('pomodoroStarted')).to.equal(wrapper.state('pomodoroStarted'));
+    });
+
+    it('should pass an onStartPomodoro callback prop', function() {
+      const wrapper = shallow(<PomodoroClock />);
+      const pomodoroControls = wrapper.find(PomodoroControls);
+      const handleStartPomodoro = wrapper.instance().handleStartPomodoro;
+      expect(pomodoroControls.prop('onStartPomodoro')).to.exist;
+      expect(pomodoroControls.prop('onStartPomodoro')).to.eql(handleStartPomodoro);
+    });
+
+    it('should pass an onStopPomodoro callback prop', function() {
+      const wrapper = shallow(<PomodoroClock />);
+      const pomodoroControls = wrapper.find(PomodoroControls);
+      const handleStopPomodoro = wrapper.instance().handleStopPomodoro;
+      expect(pomodoroControls.prop('onStopPomodoro')).to.exist;
+      expect(pomodoroControls.prop('onStopPomodoro')).to.eql(handleStopPomodoro);
     });
 
   });

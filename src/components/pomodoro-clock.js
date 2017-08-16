@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import PomodoroControls from './pomodoro-controls';
 import PomodoroTimer from './pomodoro-timer';
 
 class PomodoroClock extends Component {
@@ -13,13 +14,24 @@ class PomodoroClock extends Component {
       pomodoroMode: 'create', // create || recreate
       pomodoroStarted: false, // true || false      
     }
+
+    this.handleStartPomodoro = this.handleStartPomodoro.bind(this);
+    this.handleStopPomodoro = this.handleStopPomodoro.bind(this);
+  }
+
+  handleStartPomodoro() {
+
+  }
+
+  handleStopPomodoro() {
+
   }
 
   render() {
-    const { durationCreation, durationElapsed, durationRecreation, pomodoroMode } = this.state;
+    const { durationCreation, durationElapsed, durationRecreation, pomodoroMode, pomodoroStarted } = this.state;
     
     return (
-      <div className="pomodoro-clock grid-container grid-container-padded">
+      <div className={'pomodoro-clock grid-container grid-container-padded ' + pomodoroMode}>
         <div className="grid-x">
           <div className="cell">
             <h1 className="text-center">Pomodoro Clock</h1>
@@ -27,6 +39,11 @@ class PomodoroClock extends Component {
               durationElapsed={durationElapsed}
               pomodoroMode={pomodoroMode}
               durationTotal={(pomodoroMode === 'create') ? durationCreation : durationRecreation}
+            />
+            <PomodoroControls
+              onStartPomodoro={this.handleStartPomodoro}
+              onStopPomodoro={this.handleStopPomodoro}
+              pomodoroStarted={pomodoroStarted}
             />
           </div>
         </div>

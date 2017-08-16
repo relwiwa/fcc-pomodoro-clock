@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import '../styles/pomodoro-timer.scss';
-
+//import '../styles/pomodoro-timer.scss';
 
 /** @function PomodoroTimer
  *  @description functional React component
@@ -47,6 +46,7 @@ const PomodoroTimer = (props) => {
           </p>            
           <div
             className="inner-container"
+            style={{transform: 'rotate(' + ((durationElapsed * 360) / (durationTotal)) + 'deg)'}}
           >
             <div className="circle"></div>
             <div className="pointer"></div>

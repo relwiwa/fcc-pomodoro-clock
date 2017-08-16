@@ -1,0 +1,27 @@
+@import './pomodoro.general.scss';
+
+.pomodoro-controls {
+  button {
+    padding:10px;
+    border-radius:50%;
+    min-width:40px;
+    min-height:40px;
+  }
+}
+
+
+  .create .pomodoro-controls {
+    .pomodoro-button {
+      color: $colorComplimentaryB;
+      background: $colorComplimentaryA;
+      box-shadow:0 0 20px $colorComplimentaryB;
+    }
+  }
+
+  .recreate .pomodoro-controls {
+    .pomodoro-button {
+      color: $colorComplimentaryA;
+      background: $colorComplimentaryB;
+      box-shadow:0 0 20px $colorComplimentaryA;
+    }
+  }

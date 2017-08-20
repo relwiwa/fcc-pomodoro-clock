@@ -113,4 +113,100 @@ describe('<PomodoroClock />', function () {
 
   });
 
+  describe('\'s handleStartPomodoro function', function() {
+    let wrapper;
+    beforeEach(function() {
+      wrapper = shallow(<PomodoroClock />);
+    });
+    it('should set state["pomodoroStarted"] to true', function() {
+      wrapper.instance().handleStartPomodoro();
+      expect(wrapper.state('pomodoroStarted')).to.equal(true);      
+    });
+    it('should make sure that pomodoroInterval gets started', function() {
+      wrapper.instance().handleStartPomodoro();
+      expect(wrapper.instance().pomodoroInterval).to.exist;
+      expect(wrapper.instance().pomodoroInterval._repeat).to.exist;
+    });
+  });
+
+  describe('\'s handleStopPomodoro function', function() {
+    let wrapper;
+    beforeEach(function() {
+      wrapper = shallow(<PomodoroClock />);
+    });
+    it('should set state["pomodoroStarted"] to false', function() {
+      wrapper.instance().handleStopPomodoro();
+      expect(wrapper.state('pomodoroStarted')).to.equal(false);      
+    });
+    it('should set state["pomodoroStarted"] to false after pomodoroClock has been started', function() {
+      wrapper.instance().handleStartPomodoro();
+      wrapper.instance().handleStopPomodoro();
+      expect(wrapper.state('pomodoroStarted')).to.equal(false);      
+    });
+    it('should reset durationElapsed to zero', function() {
+      wrapper.instance().handleStartPomodoro();
+      wrapper.setState({durationElapsed: 12});
+      wrapper.instance().handleStopPomodoro();
+      expect(wrapper.state('durationElapsed')).to.equal(0);      
+    });
+    it('should reset pomodoroMode to create', function() {
+      wrapper.instance().handleStartPomodoro();
+      wrapper.setState({pomodoroMode: 'recreate'});
+      wrapper.instance().handleStopPomodoro();
+      expect(wrapper.state('pomodoroMode')).to.equal('create');      
+    });
+    it('should make sure that pomodoroInterval gets stopped', function() {
+      wrapper.instance().handleStartPomodoro();
+      wrapper.instance().handleStopPomodoro();
+      expect(wrapper.instance().pomodoroInterval._repeat).to.not.exist;
+    });
+  });
+
+  describe('\'s handlePomodoroInterval function', function() {
+    let wrapper;
+    beforeEach(function() {
+      wrapper = shallow(<PomodoroClock />);
+    });
+    it('should increase durationElapsed by 1 when it is < durationCreation', function() {
+      wrapper.instance().handleStartPomodoro();
+      wrapper.setState({ durationElapsed: 5 });
+      wrapper.instance().handlePomodoroInterval();
+      expect(wrapper.state('durationElapsed')).to.equal(6);      
+    });
+    it('should set durationElapsed to 0 when it === durationCreation - 1', function() {
+      wrapper.instance().handleStartPomodoro();
+      wrapper.setState({ durationElapsed: 1499 });
+      wrapper.instance().handlePomodoroInterval();
+      expect(wrapper.state('durationElapsed')).to.equal(0);
+    });
+    it('should toggle pomodoroMode when it === durationCreation - 1', function() {
+      wrapper.setState({ durationElapsed: 1499 });
+      wrapper.instance().handlePomodoroInterval();
+      expect(wrapper.state('pomodoroMode')).to.equal('recreate');
+      wrapper.setState({ durationElapsed: 1499 });
+      wrapper.instance().handlePomodoroInterval();
+      expect(wrapper.state('pomodoroMode')).to.equal('create');
+    });
+
+  });
+
+  /* startPomodoro
+      -> play gong
+      -> change state
+      -> start interval
+
+    stopPomodoro
+    -> changeState
+    -> reset timeElapsed,
+    -> stop interval
+
+    changeMode
+    -> play gong
+    -> changeState
+    -> resetTimeElapsed
+
+    handlePomodoroInterval
+    -> decrease timeelapsed by 1 or changes mode and resets */
+
+
 });

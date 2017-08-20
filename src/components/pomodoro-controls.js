@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-//import '../styles/pomodoro-controls.scss';
+import '../styles/pomodoro-controls.scss';
 
 
 /** @function PomodoroControls

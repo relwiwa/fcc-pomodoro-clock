@@ -5,7 +5,10 @@ import '../styles/pomodoro-timer.scss';
 
 /** @function PomodoroTimer
  *  @description functional React component
- *  @param pomodoroMode is used to display current pomodoroMode
+ *  @param pomodoroMode
+ *  - is used to display current pomodoroMode
+ *  - is used to determine clock- or counter-clockwise rotation of
+ *    pointer
  *  @param durationTotal and @param durationElapsed
  *  - are used to calculate the remaining minutes and seconds to be
  *    displayed
@@ -14,6 +17,20 @@ import '../styles/pomodoro-timer.scss';
 const PomodoroTimer = (props) => {
   const { durationElapsed, durationTotal, pomodoroMode } = props;
   const remainingTime = durationTotal - durationElapsed;
+
+  /** @function getRotationStyle
+   *  @description calculates rotation value and makes clock- and
+   *  counter-clockwise rotation depending on pomodoroMode possible
+   *  @returns transform style attribute...
+   *  - with positive rotation value if pomodoroMode is create
+   *  - with negative rotation value if pomodoroMode is recreate */
+  const getRotationStyle = () => {
+    let rotationDegrees = ((durationElapsed * 360) / (durationTotal));
+    if (pomodoroMode === 'recreate') {
+      rotationDegrees *= -1;
+    }
+    return {transform: 'rotate(' + rotationDegrees + 'deg)'};
+  };
 
   /** @function getRemainingMinutes
    *  @param totalSeconds
@@ -46,7 +63,7 @@ const PomodoroTimer = (props) => {
           </p>            
           <div
             className="inner-container"
-            style={{transform: 'rotate(' + ((durationElapsed * -360) / (durationTotal)) + 'deg)'}}
+            style={getRotationStyle()}
           >
             <div className="circle"></div>
             <div className="pointer"></div>

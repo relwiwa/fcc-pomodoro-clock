@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import '../styles/pomodoro-timer.scss';
+//import '../styles/pomodoro-timer.scss';
 
 /** @function PomodoroTimer
  *  @description functional React component
@@ -75,9 +75,9 @@ const PomodoroTimer = (props) => {
 };
 
 PomodoroTimer.propTypes = {
-  durationElapsed: PropTypes.number,
-  durationTotal: PropTypes.number,
-  pomodoroMode: PropTypes.string,
+  durationElapsed: PropTypes.number.isRequired,
+  durationTotal: PropTypes.number.isRequired,
+  pomodoroMode: PropTypes.string.isRequired,
 }
 
 export default PomodoroTimer;

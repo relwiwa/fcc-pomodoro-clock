@@ -3,6 +3,7 @@
 @include foundation-global-styles;
 @include foundation-button;
 @include foundation-flex-classes;
+@include foundation-range-input;
 @include foundation-typography;
 @include foundation-visibility-classes;
 @include foundation-xy-grid-classes(
@@ -11,6 +12,20 @@
   $padding-grid: true,
   $block-grid: false,
   $collapse: false,
-  $offset: false,
+  $offset: true,
   $vertical-grid: false
 );
+
+input[type=range]{
+  -webkit-appearance: none;
+}
+
+/* Bugged pseudo-class name in Foundation source */
+input[type=range]::-webkit-slider-thumb {
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-top: -0.45rem;
+  -webkit-appearance: none;
+  background: #1779ba;
+  border-radius:5px;
+}

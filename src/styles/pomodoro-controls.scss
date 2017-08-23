@@ -1,26 +1,20 @@
 @import './pomodoro.general.scss';
+@import './pomodoro-button.scss';
 
 .pomodoro-controls {
-  button {
-    padding:10px;
-    border-radius:50%;
-    min-width:40px;
-    min-height:40px;
-    color:$colorNeutral;
+  .pomodoro-button {
+    @extend %pomodoro-button;
   }
 }
 
-
-  .create .pomodoro-controls {
-    .pomodoro-button {
-      background: $colorComplimentaryA;
-      box-shadow:0 0 20px $colorComplimentaryB;
-    }
+.create .pomodoro-controls {
+  .pomodoro-button {
+    @extend %pomodoro-button-create;
   }
+}
 
-  .recreate .pomodoro-controls {
-    .pomodoro-button {
-      background: $colorComplimentaryB;
-      box-shadow:0 0 20px $colorComplimentaryA;
-    }
+.recreate .pomodoro-controls {
+  .pomodoro-button {
+    @extend %pomodoro-button-recreate;
   }
+}

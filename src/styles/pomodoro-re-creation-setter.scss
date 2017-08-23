@@ -1,0 +1,14 @@
+@import './pomodoro.general.scss';
+@import './pomodoro-button.scss';
+
+.pomodoro-re-creation-setter {
+  .pomodoro-button {
+    @extend %pomodoro-button;
+  }
+  .pomodoro-button.light {
+    @extend %pomodoro-button-create;    
+  }
+  .pomodoro-button.dark {
+    @extend %pomodoro-button-recreate;    
+  }
+}

@@ -4,6 +4,7 @@ import { expect } from 'chai';
 
 import PomodoroClock from '../src/components/pomodoro-clock';
 import PomodoroControls from '../src/components/pomodoro-controls';
+import PomodoroReCreationSetter from '../src/components/pomodoro-re-creation-setter';
 import PomodoroTimer from '../src/components/pomodoro-timer';
 
 /*  jsdom does not yet handle audio-elements well, so playing the audio
@@ -24,13 +25,15 @@ describe('<PomodoroClock />', function () {
     expect(wrapper.find('.pomodoro-clock.recreate')).to.have.length(1);
   });
 
-
   describe('\'s child elements', function() {
     it('should contain one <h1>', function () {
       expect(wrapper.find('h1')).to.have.length(1);
     });
     it('should contain one <PomodoroDurationSetter>', function () {
       expect(wrapper.containsMatchingElement(<PomodoroDurationSetter />)).to.equal(true);
+    });
+    it('should contain one <PomodoroReCreationSetter>', function () {
+      expect(wrapper.containsMatchingElement(<PomodoroReCreationSetter />)).to.equal(true);
     });
     it('should contain one <PomodoroTimer>', function () {
       expect(wrapper.containsMatchingElement(<PomodoroTimer />)).to.equal(true);
@@ -58,6 +61,22 @@ describe('<PomodoroClock />', function () {
     });
     it ('should set pomodoroMode to initial value creation', function() {
       expect(wrapper.state('pomodoroMode')).to.equal('create');
+    });
+  });
+
+  describe('props passed to <PomodoroReCreationSetter>', function() {
+    it('should pass durationCreation and durationRecreation as props', function() {
+      const pomodoroReCreationSetter = wrapper.find(PomodoroReCreationSetter);
+      expect(pomodoroReCreationSetter.prop('durationCreation')).to.equal(wrapper.state('durationCreation'));
+      expect(pomodoroReCreationSetter.prop('durationReCreation')).to.equal(wrapper.state('durationReCreation'));
+    });
+    it('should only pass onChangeReCreation callback, when PomodoroTimer is not running', function() {
+      let pomodoroReCreationSetter = wrapper.find(PomodoroReCreationSetter);
+      const handleChangeReCreation = wrapper.instance().handleChangeReCreation;
+      expect(pomodoroReCreationSetter.prop('onChangeReCreation')).to.equal(handleChangeReCreation);
+      wrapper.setState({ pomodoroStarted: true });
+      pomodoroReCreationSetter = wrapper.find(PomodoroReCreationSetter);
+      expect(pomodoroReCreationSetter.prop('onChangeReCreation')).to.equal(null);
     });
   });
 
@@ -175,4 +194,24 @@ describe('<PomodoroClock />', function () {
       expect(wrapper.state('pomodoroMode')).to.equal('create');
     });
   });
+
+  describe('\'s handleChangeReCreation function', function() {
+    beforeEach(function() {
+      wrapper = mount(<PomodoroClock />);
+    });
+    it('should set state.durationCreation to newDurationCreation argument, in seconds', function() {
+      const event = { target: { value: 15 } };
+      wrapper.instance().handleChangeReCreation(event);
+      expect(wrapper.state('durationCreation')).to.equal(900);
+    });
+    it('should set state.durationRecreation to currentTotalDuration minus newDurationCreation argument, in seconds', function() {
+      const event = { target: { value: 15 } };
+      wrapper.setState({ durationCreation: 1500, durationRecreation: 300 });
+      wrapper.instance().handleChangeReCreation(event);
+      expect(wrapper.state('durationRecreation')).to.equal(900);
+    });
+
+  });
+
+
 });

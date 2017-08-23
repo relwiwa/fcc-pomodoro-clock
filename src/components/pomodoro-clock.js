@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import PomodoroControls from './pomodoro-controls';
+import PomodoroReCreationSetter from './pomodoro-re-creation-setter';
 import PomodoroTimer from './pomodoro-timer';
 
 class PomodoroClock extends Component {
@@ -8,17 +9,33 @@ class PomodoroClock extends Component {
     super(props);
 
     this.state = {
-      durationCreation: 10, // 1500 seconds equal 25 minutes
+      durationCreation: 1500, // 1500 seconds equal 25 minutes
       durationElapsed: 0,
-      durationRecreation: 10, // 300 seconds equal 5 minutes
+      durationRecreation: 300, // 300 seconds equal 5 minutes
       pomodoroMode: 'create', // create || recreate
       pomodoroStarted: false, // true || false      
     }
 
+    this.handleChangeReCreation = this.handleChangeReCreation.bind(this);
     this.handlePomodoroInterval = this.handlePomodoroInterval.bind(this);
     this.handleStartPomodoro = this.handleStartPomodoro.bind(this);
     this.handleStopPomodoro = this.handleStopPomodoro.bind(this);
     this.playGong = this.playGong.bind(this);
+  }
+
+
+  /** @function handleChangeReCreation
+   *  @description Updates both durationCreation and durationRecreation */
+  handleChangeReCreation(event) {
+    const { durationCreation, durationRecreation } = this.state;
+
+    const newDurationCreation = event.target.value * 60;
+    const currentDurationTotal = durationCreation + durationRecreation;
+    const newDurationRecreation = currentDurationTotal - newDurationCreation;
+    this.setState({
+      durationCreation: newDurationCreation,
+      durationRecreation: newDurationRecreation,
+    });
   }
 
   /** @function handlePomodoroInterval
@@ -82,6 +99,11 @@ class PomodoroClock extends Component {
         <div className="grid-x">
           <div className="cell">
             <h1 className="text-center">Pomodoro Clock</h1>
+            <PomodoroReCreationSetter
+              durationCreation={durationCreation}
+              durationRecreation={durationRecreation}
+              onChangeReCreation={!pomodoroStarted ? this.handleChangeReCreation : null}
+            />
             <PomodoroTimer
               durationElapsed={durationElapsed}
               pomodoroMode={pomodoroMode}
